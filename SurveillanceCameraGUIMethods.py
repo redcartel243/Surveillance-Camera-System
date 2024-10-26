@@ -136,6 +136,10 @@ class MethodMapping(QMainWindow, Ui_MainWindow):
             self.known_faces_dir = os.path.join("datasets", "known_faces")
             self.captures_dir = os.path.join("datasets", "Captures")
 
+            # Ensure directories exist
+            os.makedirs(self.known_faces_dir, exist_ok=True)
+            os.makedirs(self.captures_dir, exist_ok=True)
+
             # Debug the path values
             print(f"known_faces_dir: {self.known_faces_dir}, type: {type(self.known_faces_dir)}")
             print(f"captures_dir: {self.captures_dir}, type: {type(self.captures_dir)}")
