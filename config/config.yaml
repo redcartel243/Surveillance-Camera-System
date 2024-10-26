@@ -1,0 +1,10 @@
+email:
+  sender: "yourmail@gmail.com"
+  password: "+testpas"
+  receiver: "receiver@gmail.com"
+alarm:
+  sound: 1
+  repetitions: 3
+  text: "Intruder detected"
+voice:
+  type: "male"

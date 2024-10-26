@@ -1,0 +1,1 @@
+{"ON": true, "OFF": false, "ID": 1, "user1": "David", "user2": "", "promptNotF": false, "LimitReached": false, "alarm": "2", "numberRep": 1, "voice": 0, "AlarmText": "intruder!", "countWrongf": 0, "countRightf": 10}
