@@ -1,79 +1,114 @@
-# Surveillance Camera System
+# Surveillance Camera System with Advanced Face Recognition and Real-Time Processing
 
-## Overview
-
-The Surveillance Camera System is a comprehensive application designed for real-time video monitoring and face recognition. Built using Python and PyQt5, this system allows users to manage multiple camera feeds, recognize faces, and interact with a user-friendly graphical interface. The application is suitable for security purposes or managing access control in various environments (Only for personal use).
+This project is a sophisticated surveillance camera system featuring high-performance face recognition, real-time video processing, and advanced GPU-optimized detection and recognition capabilities. Designed with modular, asynchronous processing threads, it efficiently handles multiple camera streams, dynamic caching, and advanced event-triggered mechanisms, making it ideal for large-scale surveillance and high-security applications.
 
 ## Features
 
-- **Multi-Camera Support**: Connect and manage multiple cameras simultaneously.
-- **Face Recognition**: Utilize advanced face recognition technology to identify individuals in real-time.
-- **User-Friendly Interface**: Intuitive GUI built with PyQt5 for easy navigation and control.
-- **Dynamic Video Display**: Automatically updates video feeds based on user interactions.
-- **Full-Screen Mode**: View camera feeds in full-screen for enhanced visibility.
-- **Camera Management**: Easily add, remove, or modify camera settings.
-- **Real-Time Notifications**: Receive alerts for recognized faces or other significant events.
+### Core Functionality
+
+- **Multi-Camera Support**: Integrates with both IP and local cameras, handling multiple streams simultaneously.
+- **YOLO-Based Face Detection**: Uses the YOLO model for face detection, optimized for GPU processing.
+- **Face Recognition**: Identifies faces from a database, caches known faces with Redis for faster recognition, and leverages Faiss indexing for efficient lookups.
+- **Real-Time Video Handling**: Dynamically adjusts video resolution based on system load, providing an adaptable solution that optimizes for both performance and clarity.
+
+### Advanced Features
+
+- **Parallel Processing Pipeline**: Each stage of video processing (decoding, detection, recognition, and GUI updating) runs in independent threads, allowing for smooth and asynchronous operations.
+- **High-Performance Caching Mechanism**: Redis integration ensures frequently encountered faces are recognized quickly, and Faiss clustering further optimizes recognition by organizing "hot" faces.
+- **Event Triggering and Alerts**: System triggers notifications based on specific events, like detecting unknown faces or unusual motion patterns.
+
+## Planned Upgrades
+
+This project is under active development, with additional features and improvements planned:
+
+### Future Milestones
+
+- **Parallel Processing & GPU Utilization (Expected Completion: Q1 2024)**
+  - Enhanced GPU utilization across detection and recognition stages.
+  - Batch processing support for face recognition, enabling efficient processing across multiple frames.
+
+- **Advanced Caching Mechanism (Expected Completion: Q2 2024)**
+  - Integration of Redis for distributed caching, shared across instances.
+  - Faiss clustering with a focused "hot" index, improving recognition times for frequently encountered faces.
+
+- **Enhanced Real-Time Video Handling (Expected Completion: Q2 2024)**
+  - Intelligent frame skipping based on inactivity or stable scenes.
+  - Dynamic resolution adjustments to balance performance and image clarity under varying system loads.
+
+- **AI-Based Event Triggering & Anomaly Detection (Expected Completion: Q3 2024)**
+  - Hooks for event-based detection, enabling responses to unknown faces and unusual motion patterns.
+  - Anomaly detection to alert users of unexpected activity within restricted areas.
+
+- **Automated Data Labeling & Model Updating (Expected Completion: Q4 2024)**
+  - Feedback loop to improve face recognition by retraining models on confirmed corrections.
+  - Automated updates to YOLO and face recognition models, seamlessly improving accuracy.
+
+- **Comprehensive Monitoring Dashboard (Expected Completion: Q4 2024)**
+  - Real-time dashboard for tracking system health, resource usage, and event logs.
+  - Structured analytics on detection accuracy, system performance, and incident tracking.
 
 ## Installation
 
-### Prerequisites
+1. **Clone the repository**:
 
-- Python 3.x
-- Required libraries:
-  - OpenCV
-  - NumPy
-  - PyQt5
-  - face_recognition
-  - beepy
-  - Other dependencies as specified in the `requirements.txt` file.
-
-### Steps
-
-1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/redcartel243/surveillance-camera-system.git
+   git clone https://github.com/your-username/surveillance-camera-system.git
    cd surveillance-camera-system
    ```
 
-2. **Install Dependencies**:
+2. **Install dependencies**:
+
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Set Up the Database**:
-   Initialize the database by running the following command:
-   ```bash
-   python -m src.db_func
-   ```
+3. **Configure Redis**:
 
-4. **Run the Application**:
-   Start the application using:
+   Ensure Redis is installed and running on `localhost:6379`. Modify the Redis connection if needed in the configuration.
+
+4. **Prepare YOLO & Face Recognition Models**:
+
+   - Download the YOLO weights (`yolov8n.pt`) and add them to the project directory.
+   - Add known face images in `datasets/known_faces` directory for face recognition training.
+
+5. **Database Initialization**:
+
+   Initialize the SQLite database using `DatabaseInitializer` class.
+
+6. **Run the application**:
+
    ```bash
-   python src/SurveillanceCameraGUIMethods.py
+   python main.py
    ```
 
 ## Usage
 
-1. **Login**: Upon starting the application, you will be prompted to log in. Enter your credentials to access the system.
-2. **Camera Management**: Use the interface to add or modify camera settings. You can also view live feeds from connected cameras.
-3. **Face Recognition**: Enable face recognition to start identifying individuals in the camera feeds. Recognized faces will be displayed on the screen.
-4. **Notifications**: Stay informed with real-time notifications for recognized faces or other events.
+- **Adding Cameras**: Configure IP/local cameras via the GUI. The system supports multi-camera setups, with dynamic switching available through the interface.
+- **Real-Time Monitoring**: Access face recognition, event logging, and camera controls in real-time via the GUI.
+- **Event Triggers**: Alerts for unknown faces and unusual movements can be configured through the settings.
+
+## Project Structure
+
+- `src/`: Contains all core modules, including detection, recognition, caching, and database handling.
+- `GUI/`: Manages the graphical user interface components.
+- `datasets/`: Stores images of known faces for face recognition.
+- `models/`: Holds pretrained YOLO and face recognition models.
+- `tests/`: Unit and integration tests for key functionalities.
 
 ## Contributing
 
-Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
+Contributions are welcome! Please follow these steps:
 
 1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/YourFeature`).
-3. Make your changes and commit them (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature/YourFeature`).
+2. Create a feature branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -am 'Add a new feature'`).
+4. Push to the branch (`git push origin feature-name`).
 5. Open a pull request.
 
+## License
 
-## Contact
-
-For any inquiries or support, please contact [applitwebsite1@outlook.com.com](mailto:applitwebsite1@outlook.com).
+This project is licensed under the MIT License.
 
 ---
 
-Thank you for using the Surveillance Camera System! Feel free to contribute and make it even better!
+This README provides a complete guide for users and developers to understand, install, and use the project, along with future upgrade plans to demonstrate ongoing development. Let me know if there are any further details you'd like to add.
